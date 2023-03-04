@@ -1,35 +1,22 @@
-import { useState, useEffect } from 'react';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import DetailProduct from './components/DetailProduct';
 import Products from './components/Products';
-import { getCategories, getProducts, getAllProducts } from './service';
 
 function App() {
-  const [categories, setCategories] = useState({ errorMessage: '', data: [] });
-  const [products, setProducts] = useState({ errorMessage: '', data: [] });
-
-  useEffect(() => {
-    getCategories().then((obj) => setCategories(obj));
-    getAllProducts().then((obj) => setProducts(obj));
-  }, []);
-
-  const renderProducts = (id) => {
-    getProducts(id).then((obj) => setProducts(obj));
-  };
-
-  const renderAllProducts = () => {
-    getAllProducts().then((obj) => setProducts(obj));
-  };
-
-  const detailProduct = (id) => {
-    console.log(products.data.find((p) => p.id === id));
-  };
-
   return (
     <div className="App">
-      <Header categories={categories} renderProducts={renderProducts} renderAllProducts={renderAllProducts} />
-      <Products products={products} detailProduct={detailProduct} />
-      <Footer />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/categories/:categoriesId?" element={<Products />} />
+          <Route path="/product/:productId" element={<DetailProduct />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

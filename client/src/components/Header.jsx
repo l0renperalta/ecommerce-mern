@@ -1,7 +1,17 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Categories from './Categories';
+import { Link } from 'react-router-dom';
+import { getCategories } from '../service';
 
-function Header({ categories, renderProducts, renderAllProducts }) {
+function Header() {
+  const [categories, setCategories] = useState({ errorMessage: '', data: [] });
+
+  useEffect(() => {
+    getCategories().then((obj) => {
+      setCategories(obj);
+    });
+  }, []);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,9 +33,9 @@ function Header({ categories, renderProducts, renderAllProducts }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#!">
+                <Link to="/" className="nav-link active" aria-current="page">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#!">
@@ -36,7 +46,7 @@ function Header({ categories, renderProducts, renderAllProducts }) {
                 <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Shop
                 </a>
-                <Categories categories={categories} renderProducts={renderProducts} renderAllProducts={renderAllProducts} />
+                <Categories categories={categories} />
               </li>
             </ul>
             <form className="d-flex">
@@ -49,14 +59,6 @@ function Header({ categories, renderProducts, renderAllProducts }) {
           </div>
         </div>
       </nav>
-      <header className="bg-dark py-5">
-        <div className="container px-4 px-lg-5 my-5">
-          <div className="text-center text-white">
-            <h1 className="display-4 fw-bolder">Shop in style</h1>
-            <p className="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-          </div>
-        </div>
-      </header>
     </>
   );
 }

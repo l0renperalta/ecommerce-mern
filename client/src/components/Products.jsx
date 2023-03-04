@@ -1,7 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getProducts, getAllProducts } from '../service';
 
-function Products({ products, detailProduct }) {
+function Products() {
+  const [products, setProducts] = useState({ errorMessage: '', data: [] });
+  const params = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getProducts(params.categoriesId).then((obj) => setProducts(obj));
+  }, [params.categoriesId]);
 
   return (
     <section className="py-5">
@@ -14,12 +22,12 @@ function Products({ products, detailProduct }) {
                 <div className="badge bg-dark text-white position-absolute" style={{ top: '0.5rem', right: '0.5rem' }}>
                   Sale
                 </div>
-                <Link to={`product/${p.id}`}>
-                  <img className="card-img-top" src={`./assets/${p.image}`} alt="..." onClick={() => detailProduct(p.id)} />
+                <Link to={`/product/${p.id}`}>
+                  <img className="card-img-top" src={`../assets/${p.image}`} alt="..." />
                 </Link>
                 <div className="card-body p-4">
                   <div className="text-center">
-                    <h5 className="fw-bolder" onClick={() => navigate(`product/${p.id}`)}>
+                    <h5 className="fw-bolder" onClick={() => navigate(`/product/${p.id}`)} style={{ cursor: 'pointer' }}>
                       {p.title}
                     </h5>
                     <div className="d-flex justify-content-center small text-warning mb-2">

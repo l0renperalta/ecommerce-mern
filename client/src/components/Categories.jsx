@@ -1,22 +1,14 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Categories({ categories, renderProducts, renderAllProducts }) {
+function Categories({ categories }) {
   return (
     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-      <li>
-        <a className="dropdown-item" href="#!" onClick={() => renderAllProducts()}>
-          All Products
-        </a>
-      </li>
-      <li>
-        <hr className="dropdown-divider" />
-      </li>
       {categories.errorMessage && <li>Error: {categories.errorMessage}</li>}
       {categories.data.map((c) => (
         <li key={c.id}>
-          <a className="dropdown-item" href="#!" onClick={() => renderProducts(c.id)}>
+          <Link to={`categories/${c.id}`} className="dropdown-item">
             {c.title}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
