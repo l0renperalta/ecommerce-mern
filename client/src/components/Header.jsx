@@ -49,13 +49,13 @@ function Header() {
                 <Categories categories={categories} />
               </li>
             </ul>
-            <form className="d-flex">
-              <button className="btn btn-outline-dark" type="submit">
+            <Link to="/cart">
+              <button className="btn btn-outline-dark" type="button">
                 <i className="bi-cart-fill me-1"></i>
                 Cart
                 <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
               </button>
-            </form>
+            </Link>
           </div>
         </div>
       </nav>

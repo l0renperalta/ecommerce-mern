@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getProducts, getAllProducts } from '../service';
+import { getProducts } from '../service';
+import { CartContext } from '../contexts/CartContext';
 
 function Products() {
   const [products, setProducts] = useState({ errorMessage: '', data: [] });
   const params = useParams();
   const navigate = useNavigate();
+  const cartContext = useContext(CartContext);
+  const { addProduct } = cartContext;
 
   useEffect(() => {
     getProducts(params.categoriesId).then((obj) => setProducts(obj));
@@ -42,7 +45,7 @@ function Products() {
                 </div>
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div className="text-center">
-                    <a className="btn btn-outline-dark mt-auto" href="#">
+                    <a className="btn btn-outline-dark mt-auto" onClick={() => addProduct({ id: p.id, title: p.title, price: p.price })}>
                       Add to cart
                     </a>
                   </div>
