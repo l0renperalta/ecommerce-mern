@@ -1,20 +1,24 @@
 {
-   "name": "ecommerce-mern",
-   "version": "1.0.0",
-   "description": "",
-   "main": "index.js",
-   "scripts": {
-      "server": "json-server --watch server/db/db.json --port 5000",
-      "client": "npm run dev --prefix client"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/l0renperalta/ecommerce-mern.git"
-   },
-   "author": "loren",
-   "license": "MIT",
-   "bugs": {
-      "url": "https://github.com/l0renperalta/ecommerce-mern/issues"
-   },
-   "homepage": "https://github.com/l0renperalta/ecommerce-mern#readme"
+  "name": "ecommerce-mern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "json-server --watch server/db/db.json --port 5000",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\"  \"npm run client\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l0renperalta/ecommerce-mern.git"
+  },
+  "author": "loren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/l0renperalta/ecommerce-mern/issues"
+  },
+  "homepage": "https://github.com/l0renperalta/ecommerce-mern#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
 }

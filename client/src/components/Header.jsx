@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Categories from './Categories';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../service';
+import { CartContext } from '../contexts/CartContext';
 
 function Header() {
   const [categories, setCategories] = useState({ errorMessage: '', data: [] });
+  const { getItems } = useContext(CartContext);
+  const cartItems = getItems();
 
   useEffect(() => {
     getCategories().then((obj) => {
